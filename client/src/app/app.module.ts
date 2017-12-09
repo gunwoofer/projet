@@ -1,3 +1,4 @@
+import { CreationSessionComponent } from './creationSession/creationSession.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListeSessionComponent } from './listeSession/listeSession.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,7 @@ import {BasicService} from './basic.service';
   declarations: [
     AppComponent,
     ListeSessionComponent,
+    CreationSessionComponent,
   ],
   imports: [
     BrowserModule,

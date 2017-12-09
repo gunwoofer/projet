@@ -1,5 +1,7 @@
+import { RouterModule } from '@angular/router';
 import { Session } from './../session/session';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-liste-session',
@@ -10,7 +12,7 @@ export class ListeSessionComponent implements OnInit {
 
     public listeSessions: Session[] = new Array();
 
-    constructor () {}
+    constructor (private router: Router) {}
 
     public ngOnInit(): void {
         // Recuperer la liste des sessions sur le server depuis la bdd -> this.listeSessions
@@ -31,4 +33,9 @@ export class ListeSessionComponent implements OnInit {
         this.listeSessions.push(session4);
         this.listeSessions.push(session5);
   }
+
+    public creerSessionClick(): void {
+        console.log('creer session');
+        this.router.navigateByUrl('/creationSession');
+    }
 }

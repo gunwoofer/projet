@@ -1,4 +1,4 @@
-<h1>Liste des sessions : </h1>
+<h1 id="listeSessionh1">Liste des sessions disponibles</h1>
 <div class="row">
     <div *ngFor="let session of listeSessions" class="col-md-4">
         <div id="pannel" class="panel panel-primary">
@@ -13,5 +13,5 @@
 </div>
 
 <div class="row">
-    <button type="button" id="boutonCreer"class="btn btn-success">Créer une session</button>
+    <button type="button" id="boutonCreer"class="btn btn-success" (click)="creerSessionClick()">Créer une session</button>
 </div>
