@@ -10,10 +10,12 @@ export class Session {
     private listeParticipants: Etudiant[];
     public guid = Guid.newGuid();
 
-    constructor(sigle: string, titre: string, salle: string) {
+    constructor(sigle: string, titre: string, salle: string, heureDebut: Date, heureFin: Date) {
         this.sigleCours = sigle;
         this.titreCours = titre;
         this.salle = salle;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
         this.listeParticipants = new Array();
     }
 

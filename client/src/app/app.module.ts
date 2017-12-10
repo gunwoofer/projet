@@ -1,3 +1,4 @@
+import { CreationSessionService } from './creationSession/creationSessionService.service';
 import { CreationSessionComponent } from './creationSession/creationSession.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListeSessionComponent } from './listeSession/listeSession.component';
@@ -21,7 +22,8 @@ import {BasicService} from './basic.service';
     AppRoutingModule,
   ],
   providers: [
-    BasicService
+    BasicService,
+    CreationSessionService
   ],
   bootstrap: [AppComponent]
 })
