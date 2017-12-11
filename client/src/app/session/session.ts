@@ -22,9 +22,4 @@ export class Session {
     public ajouterEtudiant(etudiant: Etudiant): void {
         this.listeParticipants.push(etudiant);
     }
-
-    public definirTrancheHoraire(debut: Date, fin: Date): void {
-        this.heureDebut = debut;
-        this.heureFin = fin;
-    }
 }

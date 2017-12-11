@@ -7,7 +7,6 @@ const AJOUTER_SESSION_URL = 'http://localhost:3000/ajouterSession';
 @Injectable()
 export class CreationSessionService {
 
-
     constructor(private http: Http) {}
 
     public ajouterSession(session: Session): Promise<Response> {

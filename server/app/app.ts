@@ -1,3 +1,4 @@
+import { Bdd } from './bdd';
 /**
  * app.ts - Configures an Express application.
  *
@@ -55,6 +56,11 @@ export class Application {
    * @method config
    */
   private config() {
+
+    // bdd
+    const bd: Bdd = new Bdd();
+    bd.connect(Bdd.url);
+
     // Middlewares configuration
     this.app.use(logger('dev'));
     this.app.use(bodyParser.json());
@@ -71,14 +77,15 @@ export class Application {
    * @method routes
    */
   public routes() {
+
     let router: express.Router;
     router = express.Router();
 
     // create routes
     const index: indexRoute.Index = new indexRoute.Index();
 
-    // home page
-    router.get('/basic', index.index.bind(index.index));
+    // creation session
+    router.post('/ajouterSession', index.ajouterSession.bind(index.ajouterSession));
 
     // use router middleware
     this.app.use(router);

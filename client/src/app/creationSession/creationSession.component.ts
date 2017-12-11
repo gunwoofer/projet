@@ -21,13 +21,13 @@ export class CreationSessionComponent {
     constructor (public router: Router, private creationSessionService: CreationSessionService) {}
 
     public onSubmit(form: NgForm): void {
-        // Creer la nouvelle session sur le server -> bdd
         const nouvelleSession = new Session(this.sigleCours,
                                             this.titreCours,
                                             this.salle,
                                             this.heureDebut,
                                             this.heureFin);
         console.log(nouvelleSession);
+        this.creationSessionService.ajouterSession(nouvelleSession);
 
         this.router.navigateByUrl('/listeSession');
     }
