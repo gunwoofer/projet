@@ -87,6 +87,8 @@ export class Application {
     // creation session
     router.post('/ajouterSession', index.ajouterSession.bind(index.ajouterSession));
 
+    // obtenir liste des sessions
+    router.get('/obtenirSessions', index.obtenirSessions.bind(index.obtenirSessions));
     // use router middleware
     this.app.use(router);
 

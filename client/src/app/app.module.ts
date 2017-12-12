@@ -1,3 +1,4 @@
+import { ListeSessionService } from './listeSession/listeSessionService.service';
 import { CreationSessionService } from './creationSession/creationSessionService.service';
 import { CreationSessionComponent } from './creationSession/creationSession.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -7,7 +8,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import {BasicService} from './basic.service';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import {BasicService} from './basic.service';
     AppRoutingModule,
   ],
   providers: [
-    BasicService,
-    CreationSessionService
+    CreationSessionService,
+    ListeSessionService,
   ],
   bootstrap: [AppComponent]
 })

@@ -2,12 +2,12 @@ import { Guid } from './../guid';
 import { Etudiant } from './../etudiant/etudiant';
 
 export class Session {
-    private sigleCours: string;
-    private titreCours: string;
-    private salle: string;
+    public sigleCours: string;
+    public titreCours: string;
+    public salle: string;
     public heureDebut: Date;
     public heureFin: Date;
-    private listeParticipants: Etudiant[];
+    public listeParticipants: Etudiant[];
     public guid = Guid.newGuid();
 
     constructor(sigle: string, titre: string, salle: string, heureDebut: Date, heureFin: Date) {
