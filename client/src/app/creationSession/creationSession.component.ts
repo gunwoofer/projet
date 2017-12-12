@@ -32,5 +32,9 @@ export class CreationSessionComponent {
         this.router.navigateByUrl('/listeSession');
     }
 
+    public retour(): void {
+        this.router.navigateByUrl('/listeSession');
+    }
+
 
 }
