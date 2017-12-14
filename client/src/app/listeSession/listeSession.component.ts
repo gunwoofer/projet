@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListeSessionComponent implements OnInit {
 
+    public recherche: string;
     public listeSessions: Session[] = new Array();
 
     constructor (private router: Router, private listeSessionService: ListeSessionService) {}

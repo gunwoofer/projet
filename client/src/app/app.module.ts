@@ -1,3 +1,4 @@
+import { RechercheSessionParTitrePipe } from './recherchePipe/recherchePipe';
 import { ListeSessionService } from './listeSession/listeSessionService.service';
 import { CreationSessionService } from './creationSession/creationSessionService.service';
 import { CreationSessionComponent } from './creationSession/creationSession.component';
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [
     AppComponent,
+    RechercheSessionParTitrePipe,
     ListeSessionComponent,
     CreationSessionComponent,
   ],
