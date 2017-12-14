@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListeSessionComponent implements OnInit {
 
+    public nbreElementsParPage = 9;
     public recherche: string;
     public listeSessions: Session[] = new Array();
 

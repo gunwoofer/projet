@@ -2,7 +2,7 @@
 <div class="row">
        <div id="custom-search-input">
                         <div class="input-group col-md-12">
-                            <input type="text" [(ngModel)]="recherche" class="search-query form-control" placeholder="Rechercher une session (sigle, titre, ...)" />
+                            <input type="text" [(ngModel)]="recherche" class="search-query form-control" placeholder="Rechercher une session (sigle, titre)" />
                             <span class="input-group-btn">
                                 <button class="btn btn-danger" type="button">
                                     <span class=" glyphicon glyphicon-search"></span>
@@ -12,7 +12,7 @@
                     </div>
 </div>
 <div class="row">
-    <div *ngFor="let session of (listeSessions| filtrepartitre: recherche)" class="col-md-4">
+    <div *ngFor="let session of (listeSessions | filtrepartitre: recherche) | paginate: { itemsPerPage: nbreElementsParPage, currentPage: p } " class="col-md-4">
         <div id="pannel" class="panel panel-primary">
             <div class="panel-heading">{{session.sigleCours}} - {{session.titreCours}}</div>
             <div class="panel-body">Nombre participants : {{session.listeParticipants.length}}</div>
@@ -28,3 +28,4 @@
 <div class="row">
     <button type="button" id="boutonCreer"class="btn btn-success" (click)="creerSessionClick()">Créer une session</button>
 </div>
+<pagination-controls nextLabel="Suivant" previousLabel="Précédant " autoHide="true" class="text-center" (pageChange)="p = $event"></pagination-controls>
