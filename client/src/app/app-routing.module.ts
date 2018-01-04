@@ -7,7 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     { path: '', redirectTo: '/listeSession', pathMatch: 'full'},
     { path: 'listeSession', component: ListeSessionComponent },
-    { path: 'creationSession', component: CreationSessionComponent}
+    { path: 'creationSession', component: CreationSessionComponent},
+    { path: 'callback', component: ListeSessionComponent }
 ];
 
 @NgModule({

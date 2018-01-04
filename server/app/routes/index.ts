@@ -7,10 +7,10 @@ module Route {
 
         public ajouterSession(req: express.Request, res: express.Response, next: express.NextFunction): void {
             console.log('Ajout d une session a la bdd !');
-            const piste = new modelDeSession(req.body);
+            const session = new modelDeSession(req.body);
             console.log('requete body : ' , req.body);
-            console.log('objet pour bdd : ' , piste);
-            piste.save((err: any, resultat: SessionModele) => {
+            session.save((err: any, resultat: SessionModele) => {
+                console.log('TEST ERREUR DATE :' , resultat);
                 if (err) {
                     return res.status(500).json({
                         title: 'une erreur est survenue lors de la sauvegarde',
@@ -25,7 +25,7 @@ module Route {
         }
 
         public obtenirSessions(req: express.Request, res: express.Response, next: express.NextFunction): void {
-            modelDeSession.find((err: any, pistes: SessionModele[]) => {
+            modelDeSession.find((err: any, sessions: SessionModele[]) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'Une erreur est survenue',
@@ -34,7 +34,7 @@ module Route {
                 }
                 res.status(200).json({
                     message: 'Nous avons pu recuperer la liste de sessions',
-                    obj: pistes
+                    obj: sessions
                 });
             });
         }

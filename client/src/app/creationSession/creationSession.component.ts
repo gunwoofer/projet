@@ -1,3 +1,4 @@
+import { getTestBed } from '@angular/core/testing';
 import { CreationSessionService } from './creationSessionService.service';
 import { RouterModule } from '@angular/router';
 import { Session } from './../session/session';
@@ -21,11 +22,14 @@ export class CreationSessionComponent {
     constructor (public router: Router, private creationSessionService: CreationSessionService) {}
 
     public onSubmit(form: NgForm): void {
+        console.log('test heure debut : ', typeof(this.heureDebut));
+        const heureDebutFix = Date.parse(this.heureDebut.toString());
+        const heureFinFix = Date.parse(this.heureFin.toString());
         const nouvelleSession = new Session(this.sigleCours,
                                             this.titreCours,
                                             this.salle,
-                                            this.heureDebut,
-                                            this.heureFin);
+                                            heureDebutFix,
+                                            heureFinFix);
         console.log(nouvelleSession);
         this.creationSessionService.ajouterSession(nouvelleSession);
 

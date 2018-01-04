@@ -1,3 +1,5 @@
+import { AuthService } from './authentification/authService.service';
+import { AuthentificationComponent } from './authentification/authentification.component';
 import { RechercheSessionParTitrePipe } from './recherchePipe/recherchePipe';
 import { ListeSessionService } from './listeSession/listeSessionService.service';
 import { CreationSessionService } from './creationSession/creationSessionService.service';
@@ -17,6 +19,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RechercheSessionParTitrePipe,
     ListeSessionComponent,
     CreationSessionComponent,
+    AuthentificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
   providers: [
     CreationSessionService,
     ListeSessionService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

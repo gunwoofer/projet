@@ -5,12 +5,12 @@ export class Session {
     public sigleCours: string;
     public titreCours: string;
     public salle: string;
-    public heureDebut: Date;
-    public heureFin: Date;
+    public heureDebut: number;  // millisecond
+    public heureFin: number;
     public listeParticipants: Etudiant[];
     public guid = Guid.newGuid();
 
-    constructor(sigle: string, titre: string, salle: string, heureDebut: Date, heureFin: Date) {
+    constructor(sigle: string, titre: string, salle: string, heureDebut: number, heureFin: number ) {
         this.sigleCours = sigle;
         this.titreCours = titre;
         this.salle = salle;

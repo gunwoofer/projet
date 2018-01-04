@@ -1,0 +1,20 @@
+<nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-header" id="authentification">
+        <a class="navbar-brand" href="#"></a>
+        <button
+          class="btn btn-primary btn-margin"
+          *ngIf="!isAuthenticated()"
+          (click)="login()">
+            Log In
+        </button>
+  
+        <button
+          class="btn btn-danger btn-margin"
+          *ngIf="isAuthenticated()"
+          (click)="logout()">
+            Log Out
+        </button>
+      </div>
+    </div>
+</nav>

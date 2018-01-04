@@ -1,3 +1,4 @@
+import { AuthService } from './authentification/authService.service';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor () {}
+    constructor(public auth: AuthService) {
+        this.auth.handleAuthentication();
+      }
 }
 

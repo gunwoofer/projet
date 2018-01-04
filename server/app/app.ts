@@ -13,6 +13,10 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
+
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
+
 import * as indexRoute from './routes/index';
 
 export class Application {
@@ -84,11 +88,24 @@ export class Application {
     // create routes
     const index: indexRoute.Index = new indexRoute.Index();
 
+    const authCheck = jwt({
+        secret: jwks.expressJwtSecret({
+              cache: true,
+              rateLimit: true,
+              jwksRequestsPerMinute: 5,
+              jwksUri: 'https://revise-pas-seul-poly.auth0.com.auth0.com/.well-known/jwks.json'
+          }),
+          // This is the identifier we set when we created the API
+          audience: 'https://revise-pas-seul-poly.auth0.com/api/v2/',
+          issuer: 'revise-pas-seul-poly.auth0.com', // e.g., you.auth0.com
+          algorithms: ['RS256']
+    });
+
     // creation session
     router.post('/ajouterSession', index.ajouterSession.bind(index.ajouterSession));
 
     // obtenir liste des sessions
-    router.get('/obtenirSessions', index.obtenirSessions.bind(index.obtenirSessions));
+    router.get('/obtenirSessions', authCheck, index.obtenirSessions.bind(index.obtenirSessions));
     // use router middleware
     this.app.use(router);
 
