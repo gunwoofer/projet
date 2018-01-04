@@ -1,3 +1,4 @@
+import { AuthService } from './../authentification/authService.service';
 import { ListeSessionService } from './listeSessionService.service';
 import { Session } from './../session/session';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,8 @@ export class ListeSessionComponent implements OnInit {
     public recherche: string;
     public listeSessions: Session[] = new Array();
 
-    constructor (private router: Router, private listeSessionService: ListeSessionService) {}
+    constructor (private router: Router, private listeSessionService: ListeSessionService,
+                private authService: AuthService) {}
 
     public ngOnInit(): void {
 
@@ -26,5 +28,9 @@ export class ListeSessionComponent implements OnInit {
 
     public creerSessionClick(): void {
         this.router.navigateByUrl('/creationSession');
+    }
+
+    public estConnecte(): boolean {
+        return this.authService.isAuthenticated();
     }
 }
