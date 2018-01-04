@@ -22,7 +22,6 @@ export class CreationSessionComponent {
     constructor (public router: Router, private creationSessionService: CreationSessionService) {}
 
     public onSubmit(form: NgForm): void {
-        console.log('test heure debut : ', typeof(this.heureDebut));
         const heureDebutFix = Date.parse(this.heureDebut.toString());
         const heureFinFix = Date.parse(this.heureFin.toString());
         const nouvelleSession = new Session(this.sigleCours,
@@ -40,5 +39,26 @@ export class CreationSessionComponent {
         this.router.navigateByUrl('/listeSession');
     }
 
+    public formulaireValide(): boolean {
+        if (this.sigleCours && this.titreCours && this.salle && this.heureDebut) {
+            if (this.heureFin) {
+                if (this.dateValide()) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public dateValide(): boolean {
+        if (this.heureFin && this.heureDebut) {
+            const heureDebutFix = Date.parse(this.heureDebut.toString());
+            const heureFinFix = Date.parse(this.heureFin.toString());
+            return heureFinFix - heureDebutFix > 0;
+        }
+        return true;
+    }
 
 }
