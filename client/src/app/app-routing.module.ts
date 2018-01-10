@@ -1,3 +1,4 @@
+import { DetailsSessionComponent } from './detailsSession/detailsSession.component';
 import { CreationSessionComponent } from './creationSession/creationSession.component';
 import { ListeSessionComponent } from './listeSession/listeSession.component';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,8 @@ const routes: Routes = [
     { path: '', redirectTo: '/listeSession', pathMatch: 'full'},
     { path: 'listeSession', component: ListeSessionComponent },
     { path: 'creationSession', component: CreationSessionComponent},
-    { path: 'callback', component: ListeSessionComponent }
+    { path: 'callback', component: ListeSessionComponent },
+    { path : 'detailsSession', component: DetailsSessionComponent }
 ];
 
 @NgModule({

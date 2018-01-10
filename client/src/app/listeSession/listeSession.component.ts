@@ -33,4 +33,9 @@ export class ListeSessionComponent implements OnInit {
     public estConnecte(): boolean {
         return this.authService.isAuthenticated();
     }
+
+    public PlusInformationsClick(session: Session): void {
+        this.listeSessionService.sessionSelection = session;
+        this.router.navigateByUrl('/detailsSession');
+    }
 }

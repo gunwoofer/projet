@@ -1,0 +1,14 @@
+<h1>Details de la session :</h1>
+<app-authentification></app-authentification>
+
+<div class="panel panel-info">
+    <div class="panel-heading">{{session.sigleCours}} - {{session.titreCours}}</div>
+    <div class="panel-body">Salle : {{session.salle}}</div>
+    <div class="panel-body">Début : {{session.heureDebut}}</div>
+    <div class="panel-body">Fin : {{session.heureFin}}</div>
+
+    <div class="panel-body">Participants : </div>
+
+    <div class="panel-body"><button *ngIf="estConnecte()" (click)="rejoindreSession()">Rejoindre !</button></div>
+    
+</div>

@@ -7,6 +7,8 @@ const OBTENIR_LISTE_SESSIONS_URL = 'http://localhost:3000/obtenirSessions';
 @Injectable()
 export class ListeSessionService {
 
+    public sessionSelection: Session;
+
     constructor(private http: Http) {}
 
     public obtenirListeSessions(): Promise<Session[]> {

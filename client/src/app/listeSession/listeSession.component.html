@@ -23,7 +23,8 @@
             <div class="panel-body">Horaire : {{session.heureDebut | date:"MM/dd 'De' h:mma"}}
                                     à {{session.heureFin | date:"h:mma"}}
             </div>
-            <div class="panel-body"><button type="button" class="btn" *ngIf="estConnecte()" (click)="rejoindreSessionClick()">Rejoindre la session</button></div>
+                <div class="panel-body"><button type="button" class="btn" (click)="PlusInformationsClick(session)">Plus d'informations</button></div>
+            
         </div>
     </div>
 </div>

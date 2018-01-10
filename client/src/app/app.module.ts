@@ -1,3 +1,4 @@
+import { DetailsSessionComponent } from './detailsSession/detailsSession.component';
 import { AuthService } from './authentification/authService.service';
 import { AuthentificationComponent } from './authentification/authentification.component';
 import { RechercheSessionParTitrePipe } from './recherchePipe/recherchePipe';
@@ -20,6 +21,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ListeSessionComponent,
     CreationSessionComponent,
     AuthentificationComponent,
+    DetailsSessionComponent,
   ],
   imports: [
     BrowserModule,
