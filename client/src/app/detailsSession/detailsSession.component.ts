@@ -15,6 +15,7 @@ import { NgForm } from '@angular/forms';
 export class DetailsSessionComponent implements OnInit {
 
     public session: Session;
+    public profil: any;
 
     constructor(private router: Router, private listeSessionService: ListeSessionService, private auth: AuthService) {
 
@@ -22,6 +23,14 @@ export class DetailsSessionComponent implements OnInit {
 
     public ngOnInit(): void {
         this.session = this.listeSessionService.sessionSelection;
+        if (this.auth.userProfile) {
+            this.profil = this.auth.userProfile;
+          } else {
+            const self = this;
+            this.auth.getProfile((err, profile) => {
+              self.profil = profile;
+            });
+          }
     }
 
     public estConnecte(): boolean {
