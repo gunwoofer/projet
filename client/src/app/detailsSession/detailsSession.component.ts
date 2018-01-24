@@ -33,6 +33,11 @@ export class DetailsSessionComponent implements OnInit {
         if (this.auth.userProfile) {
             this.profil = this.auth.userProfile;
             console.log(this.profil);
+            this.prenom = this.profil['http://revise-pas-seul/prenom'];
+            this.nom = this.profil['http://revise-pas-seul/nom'];
+            this.genie = this.profil['http://revise-pas-seul/genie'];
+            this.mail = this.profil.name;
+            this.avatar = this.profil.picture;
           } else {
             const self = this;
             this.auth.getProfile((err, profile) => {
@@ -74,6 +79,8 @@ export class DetailsSessionComponent implements OnInit {
 
         const etudiant = new Etudiant(this.prenom, this.nom, genie, this.mail, this.avatar);
         console.log(etudiant);
+
+        this.session.ajouterEtudiant(etudiant);
     }
 
 
