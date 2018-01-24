@@ -16,6 +16,7 @@ export class DetailsSessionComponent implements OnInit {
 
     public session: Session;
     public profil: any;
+    public prenom: string;
 
     constructor(private router: Router, private listeSessionService: ListeSessionService, private auth: AuthService) {
 
@@ -25,12 +26,16 @@ export class DetailsSessionComponent implements OnInit {
         this.session = this.listeSessionService.sessionSelection;
         if (this.auth.userProfile) {
             this.profil = this.auth.userProfile;
+            console.log(this.profil);
           } else {
             const self = this;
             this.auth.getProfile((err, profile) => {
               self.profil = profile;
+              console.log(self.profil);
+              this.prenom = self.profil['http://revise-pas-seul/prenom'];
             });
           }
+
     }
 
     public estConnecte(): boolean {
