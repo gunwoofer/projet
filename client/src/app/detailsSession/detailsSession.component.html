@@ -9,7 +9,11 @@
 
     <div class="panel-body">Participants : </div>
 
-    <pre class="full-profile">{{ prenom }}</pre>
+    <pre class="full-profile">
+        <div *ngFor="let etudiant of session.listeParticipants">
+
+        </div>
+    </pre>
 
     <div class="panel-body"><button *ngIf="estConnecte()" (click)="rejoindreSession()">Rejoindre !</button></div>
     
