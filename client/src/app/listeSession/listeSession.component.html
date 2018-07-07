@@ -3,7 +3,7 @@
 <app-authentification></app-authentification>
     
 <div class="row">
-       <div id="custom-search-input">
+        <div id="custom-search-input">
                         <div class="input-group col-md-12">
                             <input type="text" [(ngModel)]="recherche" class="search-query form-control" placeholder="Rechercher une session (sigle, titre)" />
                             <span class="input-group-btn">
@@ -12,8 +12,9 @@
                                 </button>
                             </span>
                         </div>
-                    </div>
+        </div>
 </div>
+<button id="buttonRefresh" class="btn btn-primary" (click)="refresh()"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
 <div class="row">
     <div *ngFor="let session of (listeSessions | filtrepartitre: recherche) | paginate: { itemsPerPage: nbreElementsParPage, currentPage: p } " class="col-md-4">
         <div id="pannel" class="panel panel-primary">
@@ -23,13 +24,15 @@
             <div class="panel-body">Horaire : {{session.heureDebut | date:"MM/dd 'De' h:mma"}}
                                     à {{session.heureFin | date:"h:mma"}}
             </div>
-                <div class="panel-body"><button type="button" class="btn" (click)="PlusInformationsClick(session)">Plus d'informations</button></div>
+                <div class="panel-body"><button type="button" class="btn" (click)="PlusInformationsClick(session)">
+                    <span class="glyphicon glyphicon-zoom-in"></span> Plus d'informations
+                </button></div>
             
         </div>
     </div>
 </div>
 
 <div class="row">
-    <button type="button" id="boutonCreer"class="btn btn-success" (click)="creerSessionClick()">Créer une session</button>
+    <button type="button" id="boutonCreer"class="btn btn-success" (click)="creerSessionClick()" *ngIf="estConnecte()">Créer une session</button>
 </div>
 <pagination-controls nextLabel="Suivant" previousLabel="Précédant " autoHide="true" class="text-center" (pageChange)="p = $event"></pagination-controls>

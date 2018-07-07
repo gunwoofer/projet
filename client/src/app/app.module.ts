@@ -13,6 +13,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { DetailsSessionService } from './detailsSession/detailsSessionService.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CreationSessionService,
     ListeSessionService,
     AuthService,
+    DetailsSessionService,
   ],
   bootstrap: [AppComponent]
 })

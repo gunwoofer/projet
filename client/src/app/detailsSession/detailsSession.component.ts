@@ -1,11 +1,13 @@
-import { Etudiant, Genie } from './../etudiant/etudiant';
+import { Etudiant } from './../etudiant/etudiant';
 import { AuthService } from './../authentification/authService.service';
 import { ListeSessionService } from './../listeSession/listeSessionService.service';
 import { RouterModule } from '@angular/router';
 import { Session } from './../session/session';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { DetailsSessionService } from './detailsSessionService.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-liste-session',
@@ -14,43 +16,43 @@ import { NgForm } from '@angular/forms';
 })
 
 export class DetailsSessionComponent implements OnInit {
-
     public session: Session;
-    public profil: any;
+    public sessionLoaded = false;
+    private etudiantActuel: Etudiant;
 
-    public prenom: string;
-    public nom: string;
-    public genie: string;
-    public mail: string;
-    public avatar: string;
-
-    constructor(private router: Router, private listeSessionService: ListeSessionService, private auth: AuthService) {
+    constructor(private route: ActivatedRoute, private listeSessionService: ListeSessionService, private auth: AuthService, private detailsSessionService: DetailsSessionService) {
 
     }
 
     public ngOnInit(): void {
-        this.session = this.listeSessionService.sessionSelection;
-        if (this.auth.userProfile) {
-            this.profil = this.auth.userProfile;
-            console.log(this.profil);
-            this.prenom = this.profil['http://revise-pas-seul/prenom'];
-            this.nom = this.profil['http://revise-pas-seul/nom'];
-            this.genie = this.profil['http://revise-pas-seul/genie'];
-            this.mail = this.profil.name;
-            this.avatar = this.profil.picture;
-          } else {
-            const self = this;
-            this.auth.getProfile((err, profile) => {
-              self.profil = profile;
-              console.log(self.profil);
 
-              this.prenom = self.profil['http://revise-pas-seul/prenom'];
-              this.nom = self.profil['http://revise-pas-seul/nom'];
-              this.genie = self.profil['http://revise-pas-seul/genie'];
-              this.mail = self.profil.name;
-              this.avatar = self.profil.picture;
+        this.route.params.subscribe(params => {
+            this.detailsSessionService.getSessionByID(params['id'])
+                .then((session) => {
+                    console.log(session);
+                    this.session = session;
+                    this.sessionLoaded = true;
+                })
+         });
+        if (this.auth.userProfile) {
+            this.etudiantActuel = new Etudiant(
+                this.auth.userProfile['http://revise-pas-seul/prenom'],
+                this.auth.userProfile['http://revise-pas-seul/nom'],
+                this.auth.userProfile['http://revise-pas-seul/genie'],
+                this.auth.userProfile.name,
+                this.auth.userProfile.picture
+            );
+        } else {
+            this.auth.getProfile((err, profile) => {
+                this.etudiantActuel = new Etudiant(
+                    profile['http://revise-pas-seul/prenom'],
+                    profile['http://revise-pas-seul/nom'],
+                    profile['http://revise-pas-seul/genie'],
+                    profile.name,
+                    profile.picture
+                );
             });
-          }
+        }
 
     }
 
@@ -59,28 +61,13 @@ export class DetailsSessionComponent implements OnInit {
     }
 
     public rejoindreSession(): void {
-        let genie: Genie;
+        
+        console.log(this.etudiantActuel);
 
-        switch (this.genie) {
-            case('informatique'): { genie = Genie.Informatique ; break; }
-            case('logiciel'): { genie = Genie.Logiciel ; break; }
-            case('civil'): { genie = Genie.Civil ; break; }
-            case('chimique'): { genie = Genie.Chimique ; break; }
-            case('industriel'): { genie = Genie.Industriel ; break; }
-            case('physique'): { genie = Genie.Physique ; break; }
-            case('mecanique'): { genie = Genie.Mecanique ; break; }
-            case('aero'): { genie = Genie.AeroSpatial ; break; }
-            case('bio'): { genie = Genie.BioMedical ; break; }
-            case('electrique'): { genie = Genie.Electrique ; break; }
-            case('geo'): { genie = Genie.Geologique ; break; }
-            case('mine'): { genie = Genie.Mines ; break; }
-            default : { genie = null ; }
+        if (this.session) {
+            this.session.ajouterEtudiant(this.etudiantActuel);
+            this.detailsSessionService.ajouterEtudiantBDD(this.session);
         }
-
-        const etudiant = new Etudiant(this.prenom, this.nom, genie, this.mail, this.avatar);
-        console.log(etudiant);
-
-        this.session.ajouterEtudiant(etudiant);
     }
 
 

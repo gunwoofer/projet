@@ -24,6 +24,11 @@
     padding: 0;
 }
 
+#buttonRefresh {
+    margin-left: 50px;
+    margin-bottom: 50px;
+}
+
 #custom-search-input .search-query {
     padding-right: 3px;
     padding-right: 4px \9;

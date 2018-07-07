@@ -19,23 +19,26 @@ export class ListeSessionComponent implements OnInit {
                 private authService: AuthService) {}
 
     public ngOnInit(): void {
+        this.refresh();
+    }
 
-        setInterval(() => {
-            this.listeSessionService.obtenirListeSessions()
-            .then((sessions: Session[]) => { this.listeSessions = sessions; });
-        }, 1000);
-  }
-
-    public creerSessionClick(): void {
+    private creerSessionClick(): void {
         this.router.navigateByUrl('/creationSession');
     }
 
-    public estConnecte(): boolean {
+    private estConnecte(): boolean {
         return this.authService.isAuthenticated();
     }
 
-    public PlusInformationsClick(session: Session): void {
+    private PlusInformationsClick(session: Session): void {
         this.listeSessionService.sessionSelection = session;
-        this.router.navigateByUrl('/detailsSession');
+        this.router.navigate(['/detailsSession', session.guid]);
+    }
+
+    private refresh() {
+        this.listeSessionService.obtenirListeSessions()
+            .then((sessions: Session[]) => { 
+                this.listeSessions = sessions; 
+        });
     }
 }

@@ -10,7 +10,7 @@ const routes: Routes = [
     { path: 'listeSession', component: ListeSessionComponent },
     { path: 'creationSession', component: CreationSessionComponent},
     { path: 'callback', component: ListeSessionComponent },
-    { path : 'detailsSession', component: DetailsSessionComponent }
+    { path : 'detailsSession/:id', component: DetailsSessionComponent }
 ];
 
 @NgModule({

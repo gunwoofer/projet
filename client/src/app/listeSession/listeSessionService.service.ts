@@ -1,6 +1,7 @@
 import { Http, Response } from '@angular/http';
 import { Session } from './../session/session';
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 
 const OBTENIR_LISTE_SESSIONS_URL = 'http://localhost:3000/obtenirSessions';
 
@@ -23,7 +24,9 @@ export class ListeSessionService {
                     session.titreCours,
                     session.salle,
                     session.heureDebut,
-                    session.heureFin
+                    session.heureFin,
+                    session.guid,
+                    session.listeParticipants
                 );
                 sessionsTemporaire.push(nouvelleSession);
             }

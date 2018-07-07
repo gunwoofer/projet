@@ -8,15 +8,16 @@ export class Session {
     public heureDebut: number;  // millisecond
     public heureFin: number;
     public listeParticipants: Etudiant[];
-    public guid = Guid.newGuid();
+    public guid: string;
 
-    constructor(sigle: string, titre: string, salle: string, heureDebut: number, heureFin: number ) {
+    constructor(sigle: string, titre: string, salle: string, heureDebut: number, heureFin: number, guid: string = Guid.newGuid(), listeParticipants: Etudiant[] = new Array()) {
         this.sigleCours = sigle;
         this.titreCours = titre;
         this.salle = salle;
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
-        this.listeParticipants = new Array();
+        this.listeParticipants = listeParticipants;
+        this.guid = guid;
     }
 
     public ajouterEtudiant(etudiant: Etudiant): void {

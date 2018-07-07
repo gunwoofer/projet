@@ -5,7 +5,7 @@ export class Bdd {
 
     public connect(url: string): boolean {
         mongoose.Promise = global.Promise;
-        mongoose.connect(url, { useMongoClient: true });
+        mongoose.connect(url);
         mongoose.connection.on('error', error => {
           console.error(error);
           return false;

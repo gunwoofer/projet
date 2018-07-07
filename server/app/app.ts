@@ -1,4 +1,3 @@
-import { Bdd } from './bdd';
 /**
  * app.ts - Configures an Express application.
  *
@@ -13,11 +12,8 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
-
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
-
 import * as indexRoute from './routes/index';
+import { Bdd } from './bdd';
 
 export class Application {
 
@@ -60,8 +56,6 @@ export class Application {
    * @method config
    */
   private config() {
-
-    // bdd
     const bd: Bdd = new Bdd();
     bd.connect(Bdd.url);
 
@@ -81,31 +75,21 @@ export class Application {
    * @method routes
    */
   public routes() {
-
     let router: express.Router;
     router = express.Router();
 
     // create routes
     const index: indexRoute.Index = new indexRoute.Index();
 
-    const authCheck = jwt({
-        secret: jwks.expressJwtSecret({
-              cache: true,
-              rateLimit: true,
-              jwksRequestsPerMinute: 5,
-              jwksUri: 'https://revise-pas-seul-poly.auth0.com.auth0.com/.well-known/jwks.json'
-          }),
-          // This is the identifier we set when we created the API
-          audience: 'https://revise-pas-seul-poly.auth0.com/api/v2/',
-          issuer: 'revise-pas-seul-poly.auth0.com', // e.g., you.auth0.com
-          algorithms: ['RS256']
-    });
+    router.post("/obtenirSessionID", index.obtenirSessionID.bind(index.obtenirSessionID));
+    router.get("/obtenirSessions", index.obtenirSessions.bind(index.obtenirSessions));
+    router.post("/ajouterSession", index.ajouterSession.bind(index.ajouterSession));
+    router.post("/ajouterEtudiant", index.ajouterEtudiant.bind(index.ajouterEtudiant));
 
-    // creation session
-    router.post('/ajouterSession', index.ajouterSession.bind(index.ajouterSession));
 
-    // obtenir liste des sessions
-    router.get('/obtenirSessions', authCheck, index.obtenirSessions.bind(index.obtenirSessions));
+
+    router.get("/testhttp", index.testhttp.bind(index.testhttp));
+
     // use router middleware
     this.app.use(router);
 

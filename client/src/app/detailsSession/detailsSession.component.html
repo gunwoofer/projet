@@ -1,11 +1,12 @@
 <h1>Details de la session :</h1>
 <app-authentification></app-authentification>
 
-<div class="panel panel-info">
+<div class="panel panel-info" *ngIf="sessionLoaded">
+    
     <div class="panel-heading">{{session.sigleCours}} - {{session.titreCours}}</div>
     <div class="panel-body">Salle : {{session.salle}}</div>
-    <div class="panel-body">Début : {{session.heureDebut}}</div>
-    <div class="panel-body">Fin : {{session.heureFin}}</div>
+    <div class="panel-body">Début : {{session.heureDebut | date:"MM/dd h:mma"}}</div>
+    <div class="panel-body">Fin : {{session.heureFin | date:"MM/dd h:mma"}}</div>
 
     <div class="panel-body">Participants : </div>
 
