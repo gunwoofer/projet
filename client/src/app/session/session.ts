@@ -9,8 +9,9 @@ export class Session {
     public heureFin: number;
     public listeParticipants: Etudiant[];
     public guid: string;
+    public description: string;
 
-    constructor(sigle: string, titre: string, salle: string, heureDebut: number, heureFin: number, guid: string = Guid.newGuid(), listeParticipants: Etudiant[] = new Array()) {
+    constructor(sigle: string, titre: string, salle: string, heureDebut: number, heureFin: number, guid: string = Guid.newGuid(), listeParticipants: Etudiant[] = new Array(), description: string = "") {
         this.sigleCours = sigle;
         this.titreCours = titre;
         this.salle = salle;
@@ -18,6 +19,7 @@ export class Session {
         this.heureFin = heureFin;
         this.listeParticipants = listeParticipants;
         this.guid = guid;
+        this.description = description;
     }
 
     public ajouterEtudiant(etudiant: Etudiant): void {

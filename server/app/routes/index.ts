@@ -1,5 +1,4 @@
 import * as express from 'express';
-import {Message} from '../../../commun/communication/message';
 import { modelDeSession, SessionModele } from '../session/sessionModele';
 
 module Route {

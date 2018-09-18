@@ -1,21 +1,23 @@
-<h1>Details de la session :</h1>
+<h1 id="detailsh1">Details de la session :</h1>
 <app-authentification></app-authentification>
 
-<div class="panel panel-info" *ngIf="sessionLoaded">
+
+<div id="panneauDetails" class="panel panel-info" *ngIf="sessionLoaded">
     
     <div class="panel-heading">{{session.sigleCours}} - {{session.titreCours}}</div>
     <div class="panel-body">Salle : {{session.salle}}</div>
+    <div class="panel-body">Description : {{session.description}}</div>
     <div class="panel-body">Début : {{session.heureDebut | date:"MM/dd h:mma"}}</div>
     <div class="panel-body">Fin : {{session.heureFin | date:"MM/dd h:mma"}}</div>
 
     <div class="panel-body">Participants : </div>
 
-    <pre class="full-profile">
+    <pre>
         <div *ngFor="let etudiant of session.listeParticipants">
             {{ etudiant.prenom }} {{ etudiant.nom }}
         </div>
     </pre>
 
-    <div class="panel-body"><button *ngIf="estConnecte()" (click)="rejoindreSession()">Rejoindre !</button></div>
+    <div class="panel-body"><button  class="btn" *ngIf="peutRejoindre()" (click)="rejoindreSession()">Rejoindre !</button></div>
     
 </div>

@@ -8,4 +8,5 @@ export const SessionSchema: Schema = new Schema({
   heureDebut: {type: Date},
   heureFin: {type: Date},
   listeParticipants: {type: []},
+  description: {type: String}
 });

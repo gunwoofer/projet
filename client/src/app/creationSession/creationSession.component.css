@@ -10,3 +10,7 @@
 #boutonRetour {
     float: left;
 }
+
+textarea, input {
+    width: 100%;
+}

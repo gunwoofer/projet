@@ -39,7 +39,8 @@ export class DetailsSessionService {
                     session.heureDebut,
                     session.heureFin,
                     session.guid,
-                    session.listeParticipants
+                    session.listeParticipants,
+                    session.description
                 );
                 return nouvelleSession;
             })

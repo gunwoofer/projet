@@ -27,7 +27,6 @@ export class AuthService {
         console.log('test authentification console');
         this.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
-            console.log('y a une erreur');
             window.location.hash = '';
             this.setSession(authResult);
             this.router.navigateByUrl('/listeSession');
@@ -66,17 +65,19 @@ export class AuthService {
     public getProfile(cb): void {
         const accessToken = localStorage.getItem('access_token');
         if (!accessToken) {
-          throw new Error('Access token must exist to fetch profile');
+            console.log('Vous n etes pas connecté !')
+            //throw new Error('Access token must exist to fetch profile');
+        }
+        else {
+            const self = this;
+            this.auth0.client.userInfo(accessToken, (err, profile) => {
+              if (profile) {
+                self.userProfile = profile;
+              }
+              cb(err, profile);
+            });
         }
 
-        const self = this;
-        this.auth0.client.userInfo(accessToken, (err, profile) => {
-          if (profile) {
-            self.userProfile = profile;
-          }
-          cb(err, profile);
-        });
-        console.log(this.userProfile);
       }
 
 

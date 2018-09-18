@@ -18,6 +18,7 @@ export class CreationSessionComponent {
     public salle: string;
     public heureDebut: Date;
     public heureFin: Date;
+    public description: string;
 
     constructor (public router: Router, private creationSessionService: CreationSessionService) {}
 
@@ -28,7 +29,10 @@ export class CreationSessionComponent {
                                             this.titreCours,
                                             this.salle,
                                             heureDebutFix,
-                                            heureFinFix);
+                                            heureFinFix,
+                                            undefined,
+                                            undefined,
+                                            this.description);
         console.log(nouvelleSession);
         this.creationSessionService.ajouterSession(nouvelleSession);
 

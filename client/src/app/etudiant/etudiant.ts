@@ -15,12 +15,12 @@
 // }
 
 export class Etudiant {
-    private prenom: string;
-    private nom: string;
-    private matricule: string;
-    private genie: string;
-    private mail: string;
-    private avatar: string; // Lien gravatar
+    public prenom: string;
+    public nom: string;
+    public matricule: string;
+    public genie: string;
+    public mail: string;
+    public avatar: string; // Lien gravatar
 
 
     constructor(prenom: string, nom: string, genie: string, mail: string, avatar: string) {
@@ -31,11 +31,19 @@ export class Etudiant {
         this.avatar = avatar;
     }
 
+    public static rehydrater(prenom: string, nom: string, genie: string, mail: string, avatar: string): Etudiant {
+        return new Etudiant(prenom, nom, genie, mail, avatar);
+    }
+
     public setMatricule(matricule: string): void {
         this.matricule = matricule;
     }
 
     public getGenie(): string {
         return this.genie;
+    }
+
+    public getMail(): string {
+        return this.mail;
     }
 }
