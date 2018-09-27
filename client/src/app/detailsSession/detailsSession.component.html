@@ -6,9 +6,9 @@
     
     <div class="panel-heading">{{session.sigleCours}} - {{session.titreCours}}</div>
     <div class="panel-body">Salle : {{session.salle}}</div>
-    <div class="panel-body">Description : {{session.description}}</div>
     <div class="panel-body">Début : {{session.heureDebut | date:"MM/dd h:mma"}}</div>
-    <div class="panel-body">Fin : {{session.heureFin | date:"MM/dd h:mma"}}</div>
+    <div class="panel-body">Description : {{session.description}}</div>
+
 
     <div class="panel-body">Participants : </div>
 
@@ -18,6 +18,7 @@
         </div>
     </pre>
 
-    <div class="panel-body"><button  class="btn" *ngIf="peutRejoindre()" (click)="rejoindreSession()">Rejoindre !</button></div>
-    
+    <div class="panel-body"><button  class="btn" *ngIf="canJoin" (click)="rejoindreSession()">Rejoindre !</button></div>
+    <div class="panel-body"><button  class="btn" *ngIf="canLeave" (click)="quitterSession()">Quitter !</button></div>
+
 </div>

@@ -4,6 +4,5 @@ export interface SessionInterface {
     titreCours: string;
     salle: string;
     heureDebut: Date;
-    heureFin: Date;
     listeParticipants: any[];
 }

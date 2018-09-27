@@ -24,7 +24,6 @@ export class ListeSessionService {
                     session.titreCours,
                     session.salle,
                     session.heureDebut,
-                    session.heureFin,
                     session.guid,
                     session.listeParticipants
                 );

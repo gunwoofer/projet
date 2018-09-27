@@ -6,7 +6,6 @@ export const SessionSchema: Schema = new Schema({
   titreCours: {type: String},
   salle: {type: String},
   heureDebut: {type: Date},
-  heureFin: {type: Date},
   listeParticipants: {type: []},
   description: {type: String}
 });

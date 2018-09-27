@@ -17,19 +17,21 @@ export class CreationSessionComponent {
     public titreCours: string;
     public salle: string;
     public heureDebut: Date;
-    public heureFin: Date;
     public description: string;
+    public date;
 
-    constructor (public router: Router, private creationSessionService: CreationSessionService) {}
+    constructor (public router: Router, private creationSessionService: CreationSessionService) {
+        let today = new Date().toISOString().substr(0, 10);;
+        this.date = today;
+
+    }
 
     public onSubmit(form: NgForm): void {
-        const heureDebutFix = Date.parse(this.heureDebut.toString());
-        const heureFinFix = Date.parse(this.heureFin.toString());
+        const heureDebutFix = Date.parse(this.date + " " + this.heureDebut.toString());
         const nouvelleSession = new Session(this.sigleCours,
                                             this.titreCours,
                                             this.salle,
                                             heureDebutFix,
-                                            heureFinFix,
                                             undefined,
                                             undefined,
                                             this.description);
@@ -45,24 +47,9 @@ export class CreationSessionComponent {
 
     public formulaireValide(): boolean {
         if (this.sigleCours && this.titreCours && this.salle && this.heureDebut) {
-            if (this.heureFin) {
-                if (this.dateValide()) {
-                    return true;
-                }
-                return false;
-            }
             return true;
         }
         return false;
-    }
-
-    public dateValide(): boolean {
-        if (this.heureFin && this.heureDebut) {
-            const heureDebutFix = Date.parse(this.heureDebut.toString());
-            const heureFinFix = Date.parse(this.heureFin.toString());
-            return heureFinFix - heureDebutFix > 0;
-        }
-        return true;
     }
 
 }

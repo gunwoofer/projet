@@ -21,8 +21,7 @@
             <div class="panel-heading">{{session.sigleCours}} - {{session.titreCours}}</div>
             <div class="panel-body">Nombre participants : {{session.listeParticipants.length}}</div>
             <div class="panel-body">Salle : {{session.salle}}</div>
-            <div class="panel-body">Horaire : {{session.heureDebut | date:"MM/dd 'De' h:mma"}}
-                                    à {{session.heureFin | date:"h:mma"}}
+            <div class="panel-body">Horaire : {{session.heureDebut | date:"MM/dd 'à' h:mma"}}
             </div>
                 <div class="panel-body"><button type="button" class="btn" (click)="PlusInformationsClick(session)">
                     <span class="glyphicon glyphicon-zoom-in"></span> Plus d'informations

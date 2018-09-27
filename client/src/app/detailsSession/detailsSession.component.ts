@@ -16,8 +16,9 @@ import { Router } from '@angular/router';
 export class DetailsSessionComponent implements OnInit {
     public session: Session;
     public sessionLoaded = false;
-    public estInscrit = true;
     private etudiantActuel: Etudiant;
+    private canJoin: boolean;
+    private canLeave: boolean;
     
 
     constructor(private router: Router, private route: ActivatedRoute, private listeSessionService: ListeSessionService, private auth: AuthService, private detailsSessionService: DetailsSessionService) {
@@ -54,7 +55,7 @@ export class DetailsSessionComponent implements OnInit {
                             this.auth.userProfile.name,
                             this.auth.userProfile.picture
                         );
-                        this.estDejaInscrit();
+                        this.peutRejoindreOuQuitter();
                     } else {
                         this.auth.getProfile((err, profile) => {
                             this.etudiantActuel = new Etudiant(
@@ -64,7 +65,7 @@ export class DetailsSessionComponent implements OnInit {
                                 profile.name,
                                 profile.picture
                             );
-                            this.estDejaInscrit();
+                            this.peutRejoindreOuQuitter();
                         });
                     }
 
@@ -74,21 +75,24 @@ export class DetailsSessionComponent implements OnInit {
 
     }
 
-    public peutRejoindre(): boolean {
-        return this.estConnecte() && !this.estInscrit;
+    public peutRejoindreOuQuitter(): void {
+        this.canJoin = this.auth.isAuthenticated() && !this.estDejaInscrit();
+        this.canLeave = this.auth.isAuthenticated() && this.estDejaInscrit();
     }
 
-    public estConnecte(): boolean {
-        return this.auth.isAuthenticated();
-    }
+
 
     public rejoindreSession(): void {
         console.log(this.etudiantActuel);
         if (this.session) {
             this.session.ajouterEtudiant(this.etudiantActuel);
             this.detailsSessionService.ajouterEtudiantBDD(this.session);
-            this.estDejaInscrit();
+            this.peutRejoindreOuQuitter();
         }
+    }
+
+    public quitterSession(): void {
+        console.log("tu as quitté la session ! A bientot");
     }
 
     private estDejaInscrit(): boolean {
@@ -98,7 +102,6 @@ export class DetailsSessionComponent implements OnInit {
                 return true;
             }
         }
-        this.estInscrit = false;
         return false;
     }
 
