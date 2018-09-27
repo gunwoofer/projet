@@ -65,6 +65,11 @@ module Route {
             });
         }
 
+        public supprimerEtudiant(req: express.Request, res: express.Response, next: express.NextFunction) {
+            console.log("Supprimer un etudiant !")
+            console.log(req.body.session.listeParticipants);
+        }
+
         public obtenirSessionID(req: express.Request, res: express.Response, next: express.NextFunction) {
             console.log("obtenir session par ID !");
             modelDeSession.findOne({guid: req.body.guid}, (err: any, session: any) => {

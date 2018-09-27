@@ -85,7 +85,7 @@ export class Application {
     router.get("/obtenirSessions", index.obtenirSessions.bind(index.obtenirSessions));
     router.post("/ajouterSession", index.ajouterSession.bind(index.ajouterSession));
     router.post("/ajouterEtudiant", index.ajouterEtudiant.bind(index.ajouterEtudiant));
-
+    router.post("/supprimerEtudiant", index.supprimerEtudiant.bind(index.supprimerEtudiant));
 
 
     router.get("/testhttp", index.testhttp.bind(index.testhttp));

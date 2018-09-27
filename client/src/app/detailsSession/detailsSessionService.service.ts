@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 
 const AJOUTER_ETUDIANT_URL = 'http://localhost:3000/ajouterEtudiant';
 const OBTENIR_SESSION_ID_URL = 'http://localhost:3000/obtenirSessionID';
+const SUPPRIMER_ETUDIANT_URL = 'http://localhost:3000/supprimerEtudiant';
 
 @Injectable()
 export class DetailsSessionService {
@@ -22,6 +23,17 @@ export class DetailsSessionService {
         return this.http.post(AJOUTER_ETUDIANT_URL, session)
             .toPromise()
             .then((reponse: Response) =>  {
+                reponse.json();
+            })
+            .catch((erreur) => erreur.json());
+    }
+
+    public retirerEtudiantBDD(etudiant: Etudiant, session: Session): Promise<Response> {
+        console.log(etudiant);
+        const params = { etudiant: etudiant, session: session};
+        return this.http.post(SUPPRIMER_ETUDIANT_URL, params)
+            .toPromise()
+            .then((reponse: Response) => {
                 reponse.json();
             })
             .catch((erreur) => erreur.json());

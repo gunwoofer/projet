@@ -93,6 +93,7 @@ export class DetailsSessionComponent implements OnInit {
 
     public quitterSession(): void {
         console.log("tu as quitté la session ! A bientot");
+        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session);
     }
 
     private estDejaInscrit(): boolean {
