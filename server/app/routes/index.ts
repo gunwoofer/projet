@@ -49,7 +49,6 @@ module Route {
                 titreCours: req.body.titreCours,
                 salle: req.body.salle,
                 heureDebut: req.body.heureDebut,
-                heureFin: req.body.heureFin
             }
             modelDeSession.findOneAndUpdate({ guid: req.body.guid }, newSession, (err: any, session: any) => {
                 console.log(session);
@@ -67,7 +66,30 @@ module Route {
 
         public supprimerEtudiant(req: express.Request, res: express.Response, next: express.NextFunction) {
             console.log("Supprimer un etudiant !")
-            console.log(req.body.session.listeParticipants);
+            let indexASupprimer = -1;
+            for (let i = 0; i < req.body.session.listeParticipants.length; i++) {
+                if (req.body.session.listeParticipants[i].mail == req.body.etudiant.mail) {
+                    indexASupprimer = i;
+                }
+            }
+            if (indexASupprimer != -1) {
+                console.log("l index a supprimer est le : " + indexASupprimer);
+                const newSession = req.body.session;
+                newSession.listeParticipants.splice(indexASupprimer, 1);
+                modelDeSession.findOneAndUpdate({ guid: req.body.session.guid }, newSession, (err: any, session: any) => {
+                    console.log(session);
+                    if (err) {
+                        console.log("une erreur est survenue");
+                        return res.status(500).json({
+                            title: 'Une erreur est survenue',
+                            error: err
+                        });
+                    }
+                    res.status(200).json({
+                        message: 'Nous avons supprime l etudiant',
+                    });
+                });
+            }
         }
 
         public obtenirSessionID(req: express.Request, res: express.Response, next: express.NextFunction) {

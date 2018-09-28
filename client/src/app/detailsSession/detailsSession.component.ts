@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsSessionService } from './detailsSessionService.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-liste-session',
@@ -21,7 +22,8 @@ export class DetailsSessionComponent implements OnInit {
     private canLeave: boolean;
     
 
-    constructor(private router: Router, private route: ActivatedRoute, private listeSessionService: ListeSessionService, private auth: AuthService, private detailsSessionService: DetailsSessionService) {
+    constructor(private router: Router, private route: ActivatedRoute, private listeSessionService: ListeSessionService,
+         private auth: AuthService, private detailsSessionService: DetailsSessionService, private location: Location) {
 
     }
 
@@ -93,7 +95,7 @@ export class DetailsSessionComponent implements OnInit {
 
     public quitterSession(): void {
         console.log("tu as quitté la session ! A bientot");
-        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session);
+        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then(() => this.ngOnInit());
     }
 
     private estDejaInscrit(): boolean {
