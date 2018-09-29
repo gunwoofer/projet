@@ -88,14 +88,16 @@ export class DetailsSessionComponent implements OnInit {
         console.log(this.etudiantActuel);
         if (this.session) {
             this.session.ajouterEtudiant(this.etudiantActuel);
-            this.detailsSessionService.ajouterEtudiantBDD(this.session);
+            this.detailsSessionService.ajouterEtudiantBDD(this.session).then(() => this.ngOnInit());
             this.peutRejoindreOuQuitter();
         }
     }
 
     public quitterSession(): void {
         console.log("tu as quitté la session ! A bientot");
-        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then(() => this.ngOnInit());
+        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then((reponse) => {
+            this.router.navigateByUrl('/listeSession');
+        });
     }
 
     private estDejaInscrit(): boolean {

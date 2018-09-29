@@ -76,19 +76,39 @@ module Route {
                 console.log("l index a supprimer est le : " + indexASupprimer);
                 const newSession = req.body.session;
                 newSession.listeParticipants.splice(indexASupprimer, 1);
-                modelDeSession.findOneAndUpdate({ guid: req.body.session.guid }, newSession, (err: any, session: any) => {
-                    console.log(session);
-                    if (err) {
-                        console.log("une erreur est survenue");
-                        return res.status(500).json({
-                            title: 'Une erreur est survenue',
-                            error: err
+                let sessionVide = newSession.listeParticipants.length == 0;
+
+                if(sessionVide) {
+                    modelDeSession.deleteOne({ guid: req.body.session.guid }, (err) => {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'Une erreur est survenue',
+                                error: err
+                            });
+                        }
+                        return res.status(200).json({
+                            message: 'Nous avons supprime la session vide',
+                            vide: sessionVide
                         });
-                    }
-                    res.status(200).json({
-                        message: 'Nous avons supprime l etudiant',
+                    })
+                }
+                else {
+                    modelDeSession.findOneAndUpdate({ guid: req.body.session.guid }, newSession, (err: any, session: any) => {
+                        console.log(session);
+                        if (err) {
+                            console.log("une erreur est survenue");
+                            return res.status(500).json({
+                                title: 'Une erreur est survenue',
+                                error: err
+                            });
+                        }
+                        return res.status(200).json({
+                            message: 'Nous avons supprime l etudiant',
+                            vide: sessionVide
+                        });
                     });
-                });
+                }
+                
             }
         }
 

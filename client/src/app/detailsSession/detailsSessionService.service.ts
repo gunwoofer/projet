@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { Etudiant } from '../etudiant/etudiant';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { resolve } from 'q';
 
 const AJOUTER_ETUDIANT_URL = 'http://localhost:3000/ajouterEtudiant';
 const OBTENIR_SESSION_ID_URL = 'http://localhost:3000/obtenirSessionID';
@@ -17,9 +18,6 @@ export class DetailsSessionService {
 
 
     public ajouterEtudiantBDD(session: Session): Promise<Response> {
-
-        console.log(session);
-
         return this.http.post(AJOUTER_ETUDIANT_URL, session)
             .toPromise()
             .then((reponse: Response) =>  {
@@ -29,12 +27,11 @@ export class DetailsSessionService {
     }
 
     public retirerEtudiantBDD(etudiant: Etudiant, session: Session): Promise<Response> {
-        console.log(etudiant);
         const params = { etudiant: etudiant, session: session};
         return this.http.post(SUPPRIMER_ETUDIANT_URL, params)
             .toPromise()
             .then((reponse: Response) => {
-                reponse.json();
+                resolve(reponse);
             })
             .catch((erreur) => erreur.json());
     }
