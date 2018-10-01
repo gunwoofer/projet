@@ -41,16 +41,9 @@ module Route {
 
         public ajouterEtudiant(req: express.Request, res: express.Response, next: express.NextFunction): void {
             console.log("AJOUT ETUDIANT A UNE SESSION");
-            console.log(req.body.guid);
-            let newSession = {
-                guid: req.body.guid,
-                listeParticipants: req.body.listeParticipants,
-                sigleCours: req.body.sigleCours,
-                titreCours: req.body.titreCours,
-                salle: req.body.salle,
-                heureDebut: req.body.heureDebut,
-            }
-            modelDeSession.findOneAndUpdate({ guid: req.body.guid }, newSession, (err: any, session: any) => {
+            let newSession = req.body.session;
+            newSession.listeParticipants.push(req.body.etudiant);
+            modelDeSession.findOneAndUpdate({ guid: req.body.session.guid }, newSession, (err: any, session: any) => {
                 console.log(session);
                 if (err) {
                     return res.status(500).json({

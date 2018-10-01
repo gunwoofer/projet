@@ -20,10 +20,10 @@ export class DetailsSessionComponent implements OnInit {
     private etudiantActuel: Etudiant;
     private canJoin: boolean;
     private canLeave: boolean;
-    
+
 
     constructor(private router: Router, private route: ActivatedRoute, private listeSessionService: ListeSessionService,
-         private auth: AuthService, private detailsSessionService: DetailsSessionService, private location: Location) {
+        private auth: AuthService, private detailsSessionService: DetailsSessionService, private location: Location) {
 
     }
 
@@ -41,8 +41,8 @@ export class DetailsSessionComponent implements OnInit {
                                 session.listeParticipants[i].nom,
                                 session.listeParticipants[i].genie,
                                 session.listeParticipants[i].mail,
-                                session.listeParticipants[i].avatar 
-                            ); 
+                                session.listeParticipants[i].avatar
+                            );
                         }
                     }
 
@@ -72,8 +72,8 @@ export class DetailsSessionComponent implements OnInit {
                     }
 
                 })
-         });
-        
+        });
+
 
     }
 
@@ -85,17 +85,15 @@ export class DetailsSessionComponent implements OnInit {
 
 
     public rejoindreSession(): void {
-        console.log(this.etudiantActuel);
+        console.log("Tu as rejoint la session !");
         if (this.session) {
-            this.session.ajouterEtudiant(this.etudiantActuel);
-            this.detailsSessionService.ajouterEtudiantBDD(this.session).then(() => this.ngOnInit());
-            this.peutRejoindreOuQuitter();
+            this.detailsSessionService.ajouterEtudiantBDD(this.etudiantActuel, this.session).then(() => this.ngOnInit());
         }
     }
 
     public quitterSession(): void {
         console.log("tu as quitté la session ! A bientot");
-        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then((reponse) => {
+        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then(() => {
             this.router.navigateByUrl('/listeSession');
         });
     }

@@ -17,11 +17,12 @@ export class DetailsSessionService {
     constructor(private http: Http) {}
 
 
-    public ajouterEtudiantBDD(session: Session): Promise<Response> {
-        return this.http.post(AJOUTER_ETUDIANT_URL, session)
+    public ajouterEtudiantBDD(etudiant: Etudiant, session: Session): Promise<Response> {
+        const params = { etudiant: etudiant, session: session};        
+        return this.http.post(AJOUTER_ETUDIANT_URL, params)
             .toPromise()
             .then((reponse: Response) =>  {
-                reponse.json();
+                resolve(reponse);
             })
             .catch((erreur) => erreur.json());
     }
