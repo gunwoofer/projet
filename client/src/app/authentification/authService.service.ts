@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
+import { Etudiant } from '../etudiant/etudiant';
 
 @Injectable()
 export class AuthService {
@@ -78,7 +79,38 @@ export class AuthService {
             });
         }
 
-      }
+    }
+
+    public getEtudiant(): Promise<Etudiant> {
+        return new Promise((resolve, reject) => {
+            if (this.userProfile) {
+                const etudiant = new Etudiant(
+                    this.userProfile['http://revise-pas-seul/prenom'],
+                    this.userProfile['http://revise-pas-seul/nom'],
+                    this.userProfile['http://revise-pas-seul/genie'],
+                    this.userProfile.name,
+                    this.userProfile.picture
+                );
+                resolve(etudiant);
+            } else {
+                this.getProfile((err, profile) => {
+                    if (err) { reject(err); }
+                    const etudiant = new Etudiant(
+                        profile['http://revise-pas-seul/prenom'],
+                        profile['http://revise-pas-seul/nom'],
+                        profile['http://revise-pas-seul/genie'],
+                        profile.name,
+                        profile.picture
+                    );
+                    resolve(etudiant);
+                });
+            }
+        }
+            
+        )
+        
+        
+    }
 
 
 }

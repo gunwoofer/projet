@@ -49,27 +49,12 @@ export class DetailsSessionComponent implements OnInit {
                     this.session = session;
                     this.sessionLoaded = true;
 
-                    if (this.auth.userProfile) {
-                        this.etudiantActuel = new Etudiant(
-                            this.auth.userProfile['http://revise-pas-seul/prenom'],
-                            this.auth.userProfile['http://revise-pas-seul/nom'],
-                            this.auth.userProfile['http://revise-pas-seul/genie'],
-                            this.auth.userProfile.name,
-                            this.auth.userProfile.picture
-                        );
+                    this.auth.getEtudiant().then((etudiant) => {
+                        this.etudiantActuel = etudiant;
                         this.peutRejoindreOuQuitter();
-                    } else {
-                        this.auth.getProfile((err, profile) => {
-                            this.etudiantActuel = new Etudiant(
-                                profile['http://revise-pas-seul/prenom'],
-                                profile['http://revise-pas-seul/nom'],
-                                profile['http://revise-pas-seul/genie'],
-                                profile.name,
-                                profile.picture
-                            );
-                            this.peutRejoindreOuQuitter();
-                        });
-                    }
+                    }).catch((err) => {
+                        console.log("Erreur lors de la recuperation du profil !")
+                    })
 
                 })
         });
