@@ -93,6 +93,10 @@ export class DetailsSessionComponent implements OnInit {
         return false;
     }
 
+    private retourListeSession(): void {
+        this.router.navigateByUrl('/listeSession');
+    }
+
 
 
 }

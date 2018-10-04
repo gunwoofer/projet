@@ -18,7 +18,8 @@
         </div>
     </pre>
 
-    <div class="panel-body"><button  class="btn" *ngIf="canJoin" (click)="rejoindreSession()">Rejoindre !</button></div>
-    <div class="panel-body"><button  class="btn" *ngIf="canLeave" (click)="quitterSession()">Quitter !</button></div>
+    <button  class="btn" (click)="retourListeSession()">Liste sessions</button>
+    <button  class="btn" *ngIf="canJoin" (click)="rejoindreSession()">Rejoindre !</button>
+    <button  class="btn" *ngIf="canLeave" (click)="quitterSession()">Quitter !</button>
 
 </div>
