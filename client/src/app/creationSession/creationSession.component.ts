@@ -5,6 +5,8 @@ import { Session } from './../session/session';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../authentification/authService.service';
+import { Etudiant } from '../etudiant/etudiant';
 
 @Component({
     selector: 'app-liste-session',
@@ -20,7 +22,7 @@ export class CreationSessionComponent {
     public description: string;
     public date;
 
-    constructor (public router: Router, private creationSessionService: CreationSessionService) {
+    constructor (public router: Router, private creationSessionService: CreationSessionService, private auth: AuthService) {
         let today = new Date().toISOString().substr(0, 10);;
         this.date = today;
 
@@ -35,10 +37,15 @@ export class CreationSessionComponent {
                                             undefined,
                                             undefined,
                                             this.description);
-        console.log(nouvelleSession);
-        this.creationSessionService.ajouterSession(nouvelleSession);
+        this.auth.getEtudiant().then((etudiant) => {
+            this.creationSessionService.ajouterSession(nouvelleSession, etudiant).then((session) => {
+                this.router.navigateByUrl('/detailsSession/' + session.guid);
+            });
+        }).catch((err) => {
+            console.log("Erreur lors de la recuperation du profil !")
+        })
 
-        this.router.navigateByUrl('/listeSession');
+        
     }
 
     public retour(): void {

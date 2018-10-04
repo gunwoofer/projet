@@ -7,18 +7,16 @@ module Route {
 
         public ajouterSession(req: express.Request, res: express.Response, next: express.NextFunction) {
             console.log('Ajout d une session a la bdd !');
-            const session = new modelDeSession(req.body);
-            console.log('requete body : ' , req.body);
-            console.log('objet pour bdd : ' , session);
+            req.body.session.listeParticipants.push(req.body.etudiant);
+            const session = new modelDeSession(req.body.session);
             session.save((err: any, resultat: SessionModele) => {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         title: 'une erreur est survenue lors de la sauvegarde',
                         error: err
                     });
                 }
-                res.status(201).json({
-                    message: 'La session est sauvegardée',
+                res.status(200).json({
                     obj: resultat
                 });
             });
