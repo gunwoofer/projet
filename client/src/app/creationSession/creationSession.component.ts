@@ -74,7 +74,7 @@ export class CreationSessionComponent {
     public sigleChanged(event) {
 
         // Update the filter with the input
-        const inputReg = new RegExp("^" + event);
+        const inputReg = new RegExp("^" + event.toUpperCase());
         this.liste_sigles_filter = [];
         for (let cours of this.liste_cours) {
             if (inputReg.exec(cours["sigle"])) {
