@@ -1,0 +1,2 @@
+ - Probleme de concurrence : Avant d ajouter / supprimer un étudiant a une session il faut la mettre a jour (si d'autres utilisateurs l'ont modifiée en meme temps)
+
