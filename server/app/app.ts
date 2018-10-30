@@ -87,7 +87,6 @@ export class Application {
     router.post("/ajouterEtudiant", index.ajouterEtudiant.bind(index.ajouterEtudiant));
     router.post("/supprimerEtudiant", index.supprimerEtudiant.bind(index.supprimerEtudiant));
 
-
     router.get("/testhttp", index.testhttp.bind(index.testhttp));
 
     // use router middleware

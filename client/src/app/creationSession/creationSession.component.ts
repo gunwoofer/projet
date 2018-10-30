@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../authentification/authService.service';
 import { Etudiant } from '../etudiant/etudiant';
+import {FormControl} from '@angular/forms';
+import { LISTE_COURS } from '../data/listeCours';
 
 @Component({
     selector: 'app-liste-session',
@@ -15,6 +17,8 @@ import { Etudiant } from '../etudiant/etudiant';
 })
 export class CreationSessionComponent {
 
+    public liste_cours = LISTE_COURS;
+    public liste_sigles_filter: string[] = [];
     public sigleCours: string;
     public titreCours: string;
     public salle: string;
@@ -22,11 +26,19 @@ export class CreationSessionComponent {
     public description: string;
     public date;
 
+
     constructor (public router: Router, private creationSessionService: CreationSessionService, private auth: AuthService) {
-        let today = new Date().toISOString().substr(0, 10);;
+        let today = new Date().toISOString().substr(0, 10);
         this.date = today;
 
+        for (let cours of this.liste_cours) {
+            this.liste_sigles_filter.push(cours["sigle"]);
+        }
+        
     }
+
+
+    
 
     public onSubmit(form: NgForm): void {
         const heureDebutFix = Date.parse(this.date + " " + this.heureDebut.toString());
@@ -57,6 +69,25 @@ export class CreationSessionComponent {
             return true;
         }
         return false;
+    }
+
+    public sigleChanged(event) {
+
+        // Update the filter with the input
+        const inputReg = new RegExp("^" + event);
+        this.liste_sigles_filter = [];
+        for (let cours of this.liste_cours) {
+            if (inputReg.exec(cours["sigle"])) {
+                this.liste_sigles_filter.push(cours["sigle"]);
+            }
+        }
+
+        // Update the class title if the sigle exists
+        for (let cours of this.liste_cours) {
+            if (event.toLowerCase() == cours["sigle"].toLowerCase()) {
+                this.titreCours = cours["titre"];
+            }
+        }
     }
 
 }

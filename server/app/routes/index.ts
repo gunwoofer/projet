@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as fs from 'fs';
 import { modelDeSession, SessionModele } from '../session/sessionModele';
 
 module Route {

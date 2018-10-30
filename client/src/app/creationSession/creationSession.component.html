@@ -2,11 +2,20 @@
 
 <form class="form-horizontal col-md-4 col-md-offset-4" ngNativeValidate (ngSubmit)="onSubmit(f)" #f="ngForm" id="formulaireCreation">
     <h2 id="creerSessionh2">Créer ta session !</h2>
+
+    
+
     <div class="form-group">
-      <label class="control-label col-sm-2" for="sigle">Sigle*</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="sigleCours" name="sigle" placeholder="Entrer le sigle" required>
-      </div>
+        <label class="control-label col-sm-2" for="sigle">Sigle*</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" for="sigle" [(ngModel)]="sigleCours" (ngModelChange)="sigleChanged($event)" name="sigle" placeholder="Entrer le sigle" required matInput [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of liste_sigles_filter" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+        
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="titre">Titre*</label>
@@ -40,7 +49,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="description">Description</label>
         <div class="col-sm-10">
-            <textarea name="message" [(ngModel)]="description" rows="10" cols="50">The cat was playing in the garden.</textarea>
+            <textarea name="message" [(ngModel)]="description" rows="10" cols="50"></textarea>
         </div>
     </div>
 
