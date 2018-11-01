@@ -14,10 +14,9 @@
 
     <pre>
         <div *ngFor="let etudiant of session.listeParticipants">
-            {{ etudiant.prenom }} {{ etudiant.nom }}
+            <span class="glyphicon glyphicon-user"></span> {{ etudiant.prenom }} {{ etudiant.nom }}
         </div>
     </pre>
-
     <button  class="btn btn-primary" (click)="retourListeSession()">Liste sessions</button>
     <button  class="btn btn-success" *ngIf="canJoin" (click)="rejoindreSession()">Rejoindre !</button>
     <button  class="btn btn-danger" *ngIf="canLeave" (click)="quitterSession()">Quitter !</button>
