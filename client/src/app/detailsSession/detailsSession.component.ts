@@ -66,9 +66,18 @@ export class DetailsSessionComponent implements OnInit {
 
     public quitterSession(): void {
         console.log("tu as quitté la session ! A bientot");
-        this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then(() => {
-            this.router.navigateByUrl('/listeSession');
-        });
+        if(this.session.listeParticipants.length == 1) {
+            if(confirm("Quitter cette session aura pour effet de la supprimer car vous etes actuellement seul dedans. Confirmer ?")) {
+                this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then(() => {
+                    this.router.navigateByUrl('/listeSession');
+                });
+            } 
+        } else {
+            this.detailsSessionService.retirerEtudiantBDD(this.etudiantActuel, this.session).then(() => {
+                this.router.navigateByUrl('/listeSession');
+            });
+        }
+        
     }
 
     private estDejaInscrit(): boolean {
