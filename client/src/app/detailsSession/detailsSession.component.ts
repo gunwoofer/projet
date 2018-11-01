@@ -70,10 +70,23 @@ export class DetailsSessionComponent implements OnInit {
 
 
     public rejoindreSession(): void {
-        console.log("Tu as rejoint la session !");
-        if (this.session) {
-            this.detailsSessionService.ajouterEtudiantBDD(this.etudiantActuel, this.session).then(() => this.ngOnInit());
-        }
+        this.detailsSessionService.getSessionByID(this.session.guid)
+                .then((session) => {
+                    for (let i = 0; i < session.listeParticipants.length; i++) {
+                        if (session.listeParticipants[i] instanceof Etudiant == false) {
+                            session.listeParticipants[i] = Etudiant.rehydrater(
+                                session.listeParticipants[i].prenom,
+                                session.listeParticipants[i].nom,
+                                session.listeParticipants[i].genie,
+                                session.listeParticipants[i].mail,
+                                session.listeParticipants[i].avatar
+                            );
+                        }
+                    }
+                    this.session = session;
+                    this.detailsSessionService.ajouterEtudiantBDD(this.etudiantActuel, this.session).then(() => this.ngOnInit());
+                });
+        
     }
 
     public quitterSession(): void {
