@@ -32,20 +32,6 @@ export class DetailsSessionComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.detailsSessionService.getSessionByID(params['id'])
                 .then((session) => {
-                    console.log(session);
-
-                    for (let i = 0; i < session.listeParticipants.length; i++) {
-                        if (session.listeParticipants[i] instanceof Etudiant == false) {
-                            session.listeParticipants[i] = Etudiant.rehydrater(
-                                session.listeParticipants[i].prenom,
-                                session.listeParticipants[i].nom,
-                                session.listeParticipants[i].genie,
-                                session.listeParticipants[i].mail,
-                                session.listeParticipants[i].avatar
-                            );
-                        }
-                    }
-
                     this.session = session;
                     this.sessionLoaded = true;
 
@@ -72,17 +58,6 @@ export class DetailsSessionComponent implements OnInit {
     public rejoindreSession(): void {
         this.detailsSessionService.getSessionByID(this.session.guid)
                 .then((session) => {
-                    for (let i = 0; i < session.listeParticipants.length; i++) {
-                        if (session.listeParticipants[i] instanceof Etudiant == false) {
-                            session.listeParticipants[i] = Etudiant.rehydrater(
-                                session.listeParticipants[i].prenom,
-                                session.listeParticipants[i].nom,
-                                session.listeParticipants[i].genie,
-                                session.listeParticipants[i].mail,
-                                session.listeParticipants[i].avatar
-                            );
-                        }
-                    }
                     this.session = session;
                     this.detailsSessionService.ajouterEtudiantBDD(this.etudiantActuel, this.session).then(() => this.ngOnInit());
                 });

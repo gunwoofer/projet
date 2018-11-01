@@ -17,6 +17,11 @@
           (click)="logout()">
             Deconnexion
         </button>
+        <div *ngIf="isAuthenticated()">
+          <p id="fullName">
+            {{fullName}}
+          </p>
+        </div>
       </div>
     </div>
 </nav>

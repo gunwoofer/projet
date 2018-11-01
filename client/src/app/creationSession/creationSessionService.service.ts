@@ -16,15 +16,7 @@ export class CreationSessionService {
         .toPromise()
         .then((reponse) => {
             const session = reponse.json().obj;
-            const nouvelleSession = new Session(
-                session.sigleCours,
-                session.titreCours,
-                session.salle,
-                session.heureDebut,
-                session.guid,
-                session.listeParticipants,
-                session.description
-            );
+            const nouvelleSession = Session.rehydraterSession(session);
             return nouvelleSession;
         });
     }

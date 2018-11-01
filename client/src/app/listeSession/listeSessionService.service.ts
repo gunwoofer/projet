@@ -19,14 +19,7 @@ export class ListeSessionService {
             const sessions = response.json().obj;
             const sessionsTemporaire: Session[] = [];
             for (const session of sessions) {
-                const nouvelleSession = new Session(
-                    session.sigleCours,
-                    session.titreCours,
-                    session.salle,
-                    session.heureDebut,
-                    session.guid,
-                    session.listeParticipants
-                );
+                const nouvelleSession = Session.rehydraterSession(session);
                 sessionsTemporaire.push(nouvelleSession);
             }
             return sessionsTemporaire;

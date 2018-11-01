@@ -10,13 +10,26 @@ import { Component } from '@angular/core';
   providers: [AuthService]
 })
 export class AuthentificationComponent {
-  constructor(private auth: AuthService) {}
+
+  private fullName: string;
+
+  constructor(private auth: AuthService) {
+    this.getFullName();
+  }
   public login() {
     this.auth.login();
   }
 
   public logout() {
     this.auth.logout();
+  }
+
+  private getFullName() {
+    this.auth.getEtudiant().then((etudiant) => {
+        const fullName = etudiant.prenom + " " + etudiant.nom;
+        this.fullName = fullName;
+        console.log(fullName);
+    })
   }
 
   public isAuthenticated(): boolean {

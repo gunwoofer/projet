@@ -23,4 +23,29 @@ export class Session {
     public ajouterEtudiant(etudiant: Etudiant): void {
         this.listeParticipants.push(etudiant);
     }
+
+    public static rehydraterSession(session: any): Session {
+        const nouvelleSession = new Session(
+            session.sigleCours,
+            session.titreCours,
+            session.salle,
+            session.heureDebut,
+            session.guid,
+            session.listeParticipants,
+            session.description
+        );
+
+        for (let i = 0; i < nouvelleSession.listeParticipants.length; i++) {
+            if (nouvelleSession.listeParticipants[i] instanceof Etudiant == false) {
+                nouvelleSession.listeParticipants[i] = Etudiant.rehydrater(
+                    nouvelleSession.listeParticipants[i].prenom,
+                    nouvelleSession.listeParticipants[i].nom,
+                    nouvelleSession.listeParticipants[i].genie,
+                    nouvelleSession.listeParticipants[i].mail,
+                    nouvelleSession.listeParticipants[i].avatar
+                );
+            }
+        }
+        return nouvelleSession;
+    }
 }
