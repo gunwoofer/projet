@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as fs from 'fs';
 import { modelDeSession, SessionModele } from '../session/sessionModele';
+import { modelDeCours, CoursModele } from '../cours/coursModele';
 
 module Route {
 
@@ -118,6 +119,23 @@ module Route {
                     message: 'Nous avons pu recuperer la session',
                     obj: session
                 });
+            })
+        }
+
+        public obtenirCours(req: express.Request, res: express.Response, next: express.NextFunction) {
+            console.log("Obtenir la liste de tous les cours avec sigle");
+            modelDeCours.find({}, null, (err: any, cours: any) => {
+                if (err){
+                    return res.status(500).json({
+                        title: 'Une erreur est survenue',
+                        error: err
+                    });
+                }
+                res.status(200).json({
+                    message: 'Nous avons pu recuperer les cours',
+                    obj: cours
+                });
+                
             })
         }
 

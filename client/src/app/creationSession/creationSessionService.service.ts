@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Etudiant } from '../etudiant/etudiant';
 const AJOUTER_SESSION_URL = 'http://localhost:3000/ajouterSession';
+const OBTENIR_LISTE_COURS_URL = 'http://localhost:3000/obtenirCours'
+
 
 @Injectable()
 export class CreationSessionService {
@@ -21,5 +23,12 @@ export class CreationSessionService {
         });
     }
 
+    public obtenirListeCours(): Promise<Response> {
+        return this.http.get(OBTENIR_LISTE_COURS_URL)
+        .toPromise()
+        .then((reponse) => {
+            return reponse.json().obj;
+        });
+    }
     
 }

@@ -8,16 +8,15 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../authentification/authService.service';
 import { Etudiant } from '../etudiant/etudiant';
 import {FormControl} from '@angular/forms';
-import { LISTE_COURS } from '../data/listeCours';
 
 @Component({
     selector: 'app-liste-session',
     templateUrl: './creationSession.component.html',
     styleUrls: ['./creationSession.component.css']
 })
-export class CreationSessionComponent {
+export class CreationSessionComponent implements OnInit{
 
-    public liste_cours = LISTE_COURS;
+    public liste_cours;
     public liste_sigles_filter: string[] = [];
     public sigleCours: string;
     public titreCours: string;
@@ -30,13 +29,17 @@ export class CreationSessionComponent {
     constructor (public router: Router, private creationSessionService: CreationSessionService, private auth: AuthService) {
         let today = new Date().toISOString().substr(0, 10);
         this.date = today;
-
-        for (let cours of this.liste_cours) {
-            this.liste_sigles_filter.push(cours["sigle"]);
-        }
-        
     }
 
+
+    public ngOnInit() {
+        this.creationSessionService.obtenirListeCours().then((cours) => {
+            this.liste_cours = cours;
+            for (let cours of this.liste_cours) {
+                this.liste_sigles_filter.push(cours["sigle"]);
+            }
+        })
+    }
 
     
 

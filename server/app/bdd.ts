@@ -1,7 +1,7 @@
 import mongoose = require('mongoose');
 
 export class Bdd {
-    public static url = 'mongodb://localhost:27017/session-bd';
+    public static url = 'mongodb://localhost:27017/revise-pas-seul-bd';
 
     public connect(url: string): boolean {
         mongoose.Promise = global.Promise;
